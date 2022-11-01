@@ -2,6 +2,7 @@
 
 ## Project setup
 ```
+ежедневная практика на vue
 npm install
 ```
 
