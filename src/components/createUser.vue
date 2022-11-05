@@ -1,13 +1,15 @@
 <template>
   <div class="create-user" v-if="show" @click="closedShow">
     <div class="create-user__wrapper" @click.stop>
-
+      <form-component @newUser="createNewUser"/>
     </div>
   </div>
 </template>
 
 <script>
+import FormComponent from '@/components/FormComponent.vue'
 export default {
+  components: { FormComponent },
   props: {
     show: {
       type: Boolean,
@@ -24,7 +26,11 @@ export default {
     closedShow ()
       {
           this.$emit('update:show', false)
-      }
+    },
+    createNewUser (obj)
+    {
+      this.$emit( 'createNewUser', obj )
+    }
     }
   }
 </script>
@@ -44,6 +50,11 @@ export default {
       height: 300px;
       width: 300px;
       background: white;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 20px;
     }
   }
 </style>

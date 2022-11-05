@@ -2,7 +2,7 @@
   <div class="user-page">
     <my-input v-model="searchUser" />
     <my-button @click="openFormUser" style="margin-left: 20px">add user</my-button>
-    <create-user v-model:show="showFormUser"/>
+    <create-user @createNewUser="createNewUser" v-model:show="showFormUser"/>
     <div class="user-page__card-wrapper">
       <user-card v-for="user in searchUserName" :key="user.id" :user="user"/>
     </div>
@@ -51,6 +51,11 @@ import CreateUser from '@/components/createUser.vue'
     openFormUser ()
     {
       this.showFormUser = true
+    },
+    createNewUser (obj)
+    {
+      this.users.push( obj )
+      this.showFormUser = false
     }
   },
   computed: {

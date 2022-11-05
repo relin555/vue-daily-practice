@@ -17,5 +17,6 @@ export default {
     border-radius: 5px;
     outline: none;
     background: inherit;
+    cursor: pointer;
   }
 </style>
