@@ -1,10 +1,11 @@
 <template>
   <div class="user-page">
+    <show-user v-model:show="showUserCard" :user="openShowUser" />
     <my-input v-model="searchUser" />
     <my-button @click="openFormUser" style="margin-left: 20px">add user</my-button>
     <create-user @createNewUser="createNewUser" v-model:show="showFormUser"/>
     <div class="user-page__card-wrapper">
-      <user-card v-for="user in searchUserName" :key="user.id" :user="user"/>
+      <user-card v-for="user in searchUserName" :key="user.id" :user="user" @userShow="userShow"/>
     </div>
   </div>
 </template>
@@ -15,9 +16,10 @@ import MyInput from '@/components/UI/MyInput.vue'
 import UserCard from '@/components/userCard.vue'
 import MyButton from '@/components/UI/MyButton.vue'
 import CreateUser from '@/components/createUser.vue'
+import ShowUser from '@/components/showUser.vue'
 
   export default {
-  components: {MyInput, UserCard, MyButton, CreateUser },
+  components: { MyInput, UserCard, MyButton, CreateUser, ShowUser },
   name: 'user-page',
   data ()
   {
@@ -27,7 +29,9 @@ import CreateUser from '@/components/createUser.vue'
       page: 1,
       users: [],
       limitPage: 0,
-      showFormUser: false
+      showFormUser: false,
+      showUserCard: false,
+      openShowUser: {}
     }
   },
   methods: {
@@ -56,6 +60,11 @@ import CreateUser from '@/components/createUser.vue'
     {
       this.users.push( obj )
       this.showFormUser = false
+    },
+    userShow (user)
+    {
+      this.openShowUser = user
+      this.showUserCard = true
     }
   },
   computed: {

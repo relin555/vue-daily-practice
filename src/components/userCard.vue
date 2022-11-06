@@ -1,5 +1,5 @@
 <template>
-  <div class="user-card">
+  <div class="user-card" @click="openUser">
     <div class="user-card__wrapper">
       <h4 class="user-card__firstName">First name: {{user.fullName[1]}}</h4>
       <h4 class="user-card__lastName">Last name: {{user.fullName[0]}}</h4>
@@ -17,7 +17,13 @@
         type: Object,
         default: require
         }
+  },
+  methods: {
+    openUser ()
+    {
+        this.$emit('userShow', this.user)
       }
+    }
   }
 </script>
 
