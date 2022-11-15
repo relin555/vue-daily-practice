@@ -1,7 +1,8 @@
 <template>
   <div class="photo-set" v-if="show" @click="hidePhoto">
-    
     <div class="photo-set__wrapper" @click.stop>
+      <my-button class="photo-set__btn photo-set__btn-next" @click="nextPhoto" v-if="photo.id < limit"> next </my-button>
+      <my-button class="photo-set__btn photo-set__btn-prew" @click="prewPhoto" v-if="photo.id > 1"> prew </my-button>
       <div class="photo-set__closed-wrapper">
         <div class="photo-set__closed" @click="hidePhoto">x</div>
       </div>
@@ -14,22 +15,36 @@
 </template>
 
 <script>
+import MyButton from './UI/MyButton.vue'
   export default {
+  components: { MyButton },
   props: {
-      photo: {
+    photo: {
       type: Object,
       default: require
-      },
-      show: {
-        type: Boolean,
-        default: false
-      }
+    },
+    show: {
+      type: Boolean,
+      default: false
+    },
+    limit: {
+      type: Number,
+      default: require    
+    }
   },
   methods: {
     hidePhoto ()
     {
         this.$emit('update:show', false)
-      }
+    },
+    nextPhoto ()
+    {
+      this.$emit('nextPhoto', this.photo)
+    },
+    prewPhoto ()
+    {
+      this.$emit('prewPhoto', this.photo)
+    }
     }
   }
 </script>
@@ -48,7 +63,7 @@
       background: white;
       border-radius: 5px;
       padding: 12px;
-
+      position: relative;
     }
     &__closed-wrapper {
       display: flex;
@@ -63,6 +78,16 @@
       height: 30px;
       border: 1px solid teal;
       border-radius: 50%;
+    }
+    &__btn {
+      position: absolute;
+      top: 50%;
+    }
+    &__btn-next {
+      right: -20px;
+    }
+    &__btn-prew {
+      left: -20px;
     }
   }
 </style>

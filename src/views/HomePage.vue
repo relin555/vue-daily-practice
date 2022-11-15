@@ -6,7 +6,7 @@
     </div>
     <div style="display:flex; flex-wrap:wrap; margin: 0 auto">
       <photos-item @photo="photoGet" v-for="photo in sortImg" :key="photo.id" :photo="photo"/>
-      <photo-set v-model:show="openPhoto" :photo="photoSet"/>
+      <photo-set v-model:show="openPhoto" :photo="photoSet" :limit="limit" @nextPhoto="nextPhoto" @prewPhoto="prewPhoto"/>
     </div>
   </div>
 </template>
@@ -52,7 +52,26 @@ export default {
       {
           
         }
+    },
+    nextPhoto (item)
+    { 
+      if (item.id < this.limit)
+      {
+        let [ next ] = this.alboms.filter( el => el.id === item.id + 1 )
+        this.photoSet = next
       }
+      
+    },
+    prewPhoto (item)
+    {
+      if (item.id > 1)
+      {
+        let [ prew ] = this.alboms.filter( el => el.id === item.id - 1 )
+        this.photoSet = prew
+        console.log(true)
+      }
+      
+    }
   },
   computed: {
     sortImg ()
