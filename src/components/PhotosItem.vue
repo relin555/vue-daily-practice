@@ -15,12 +15,15 @@
       photo: {
         type: Object,
         default: require
+      },
+      index: {
+        type: Number
       }
   },
   methods: {
     openPhoto ()
     {
-      this.$emit('photo', this.photo)
+      this.$emit('photo', this.photo, this.index)
     }    
   }
   }

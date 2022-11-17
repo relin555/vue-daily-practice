@@ -5,8 +5,20 @@
       <my-button>Search Img</my-button>
     </div>
     <div style="display:flex; flex-wrap:wrap; margin: 0 auto">
-      <photos-item @photo="photoGet" v-for="photo in sortImg" :key="photo.id" :photo="photo"/>
-      <photo-set v-model:show="openPhoto" :photo="photoSet" :limit="limit" @nextPhoto="nextPhoto" @prewPhoto="prewPhoto"/>
+      <photos-item 
+        @photo="photoGet" 
+        v-for="(photo,index) in sortImg" 
+        :key="photo.id" :photo="photo" 
+        :index="index"
+      />
+      <photo-set 
+        v-model:show="openPhoto" 
+        :photo="photoSet" 
+        :arrayPhoto="sortImg" 
+        :limit="limit" 
+        @nextPhoto="nextPhoto" 
+        @prewPhoto="prewPhoto"
+      />
     </div>
   </div>
 </template>
@@ -33,8 +45,9 @@ export default {
       }
     },
   methods: {
-    photoGet ( item )
+    photoGet ( item, index )
     {
+      item.index = index
       this.photoSet = item
       this.openPhoto = true 
     },
@@ -57,7 +70,8 @@ export default {
     { 
       if (item.id < this.limit)
       {
-        let [ next ] = this.alboms.filter( el => el.id === item.id + 1 )
+        console.log(item.index)
+        let [ next ] = this.sortImg.map()
         this.photoSet = next
       }
       
@@ -66,7 +80,7 @@ export default {
     {
       if (item.id > 1)
       {
-        let [ prew ] = this.alboms.filter( el => el.id === item.id - 1 )
+        let [ prew ] = this.sortImg.filter( el => el.id === item.id - 1 )
         this.photoSet = prew
         console.log(true)
       }
@@ -76,7 +90,7 @@ export default {
   computed: {
     sortImg ()
     {
-      return this.alboms.filter( el => el.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
+      return this.alboms.filter( (el,index )=> el.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
     }
   },
   mounted ()

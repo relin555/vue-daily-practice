@@ -1,8 +1,18 @@
 <template>
   <div class="photo-set" v-if="show" @click="hidePhoto">
     <div class="photo-set__wrapper" @click.stop>
-      <my-button class="photo-set__btn photo-set__btn-next" @click="nextPhoto" v-if="photo.id < limit"> next </my-button>
-      <my-button class="photo-set__btn photo-set__btn-prew" @click="prewPhoto" v-if="photo.id > 1"> prew </my-button>
+      <my-button 
+        class="photo-set__btn photo-set__btn-next" 
+        @click="nextPhoto" 
+        v-if="arrayPhoto.length"> 
+          next 
+      </my-button>
+      <my-button 
+        class="photo-set__btn photo-set__btn-prew" 
+        @click="prewPhoto" 
+        v-if="arrayPhoto.length"> 
+          prew 
+      </my-button>
       <div class="photo-set__closed-wrapper">
         <div class="photo-set__closed" @click="hidePhoto">x</div>
       </div>
@@ -30,6 +40,10 @@ import MyButton from './UI/MyButton.vue'
     limit: {
       type: Number,
       default: require    
+    },
+    arrayPhoto: {
+      type: Array,
+      default: require
     }
   },
   methods: {

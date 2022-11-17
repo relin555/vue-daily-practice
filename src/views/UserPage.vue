@@ -1,11 +1,22 @@
 <template>
   <div class="user-page">
-    <show-user v-model:show="showUserCard" :user="openShowUser" />
+    <show-user 
+      v-model:show="showUserCard" 
+      :user="openShowUser" 
+    />
     <my-input v-model="searchUser" />
-    <my-button @click="openFormUser" style="margin-left: 20px">add user</my-button>
-    <create-user @createNewUser="createNewUser" v-model:show="showFormUser"/>
+    <my-button 
+      @click="openFormUser" 
+      style="margin-left: 20px">add user</my-button>
+    <create-user 
+      @createNewUser="createNewUser" 
+      v-model:show="showFormUser"/>
     <div class="user-page__card-wrapper">
-      <user-card v-for="user in searchUserName" :key="user.id" :user="user" @userShow="userShow"/>
+      <user-card 
+        v-for="user in searchUserName" 
+        :key="user.id" 
+        :user="user" 
+        @userShow="userShow"/>
     </div>
   </div>
 </template>
