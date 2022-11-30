@@ -2,7 +2,8 @@
   <div>
     <header class="header" style="margin-bottom: 20px">
       <my-button @click="$router.push('/')">home page</my-button>
-      <my-button @click="$router.push('/user')">user page</my-button>
+      <my-button style="margin-left: 20px" @click="$router.push('/user')">user page</my-button>
+      <my-button style="margin-left: 20px" @click="$router.push('/todo')">todo list</my-button>
     </header>
     <router-view></router-view>
   </div>

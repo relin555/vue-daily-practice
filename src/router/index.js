@@ -9,7 +9,7 @@ const routes = [
   {
     path: '/user',
     component: UserPage
-  }
+  },
 ]
 
 const router = createRouter({

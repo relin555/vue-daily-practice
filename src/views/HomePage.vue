@@ -68,12 +68,14 @@ export default {
     },
     nextPhoto (item)
     { 
-      if (item.id < this.limit)
+      console.log( this.alboms );
+      if ( item.id < this.limit )
       {
-        console.log(item.index)
-        let [ next ] = this.sortImg.map()
+        let [ next ] = this.sortImg.filter(  el => el.id === item.id + 1 )
         this.photoSet = next
+        console.log(next)
       }
+      
       
     },
     prewPhoto (item)
