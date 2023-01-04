@@ -5,7 +5,25 @@
         <div class="card__credit-card">
           <div class="card__front-and-back">
             <div class="card__front">
-
+              <div class="card__front-top-wrapper">
+                <div class="card__front-chip"></div>
+                <logo-card-visa class="card__front-logo" />
+              </div>
+              <div class="card__front-center">
+                <ul class="card__numbers-card">
+                  <li class="card__number">{{firstNumbers}}</li>
+                  <li class="card__number">{{secondNumbers}}</li>
+                  <li class="card__number">{{thirdNumbers}}</li>
+                  <li class="card__number">{{lastNumbers}}</li>
+                </ul>
+              </div>
+              <div class="card__front-bottom">
+                <div class="card__front-bottom-left">{{nameHolder}}</div>
+                <div class="card__front-bottom-right">
+                  <p class="card__front-month">{{selectedMonth}}/</p>
+                  <p class="card__front-year">{{selectedYears}}</p>
+                </div>
+              </div>
             </div>
             <div class="card__back">
 
@@ -16,10 +34,10 @@
         <fieldset class="card__number-wrapper">
           <h2 class="card__number-title">card number</h2>
           <div class="card__number-items">
-            <my-input class="card__input-number" v-model="firstNumbers"/>
-            <my-input class="card__input-number" v-model="secondNumbers"/>
-            <my-input class="card__input-number" v-model="thirdNumbers"/>
-            <my-input class="card__input-number" v-model="lastNumbers"/>
+            <my-input maxlength="4" class="card__input-number" v-model="firstNumbers"/>
+            <my-input maxlength="4" class="card__input-number" v-model="secondNumbers"/>
+            <my-input maxlength="4" class="card__input-number" v-model="thirdNumbers"/>
+            <my-input maxlength="4" class="card__input-number" v-model="lastNumbers"/>
           </div>
         </fieldset>
         <fieldset class="card__holder-wrapper">
@@ -31,7 +49,7 @@
             <my-select class="card__input-number selected" v-model="selectedYears" :options="optionsYears"/>
           </div>
           <div class="card__ccv-wrapper">
-            <my-input class="card__ccv card__input-number"/>
+            <my-input maxlength="3" class="card__ccv card__input-number"/>
           </div>
         </fieldset>
         <div class="card__submit-wrapper">
@@ -48,13 +66,15 @@ import svgVisa from '@/components/svg/logoCardVisa.vue'
 import MyInput from '@/components/UI/MyInput.vue'
 import MyButton from '@/components/UI/MyButton.vue'
 import MySelect from '@/components/UI/MySelect.vue'
+import LogoCardVisa from '../components/svg/logoCardVisa.vue'
   export default {
   name: 'cardHolder',
   components: {
       svgVisa,
       MyInput,
       MyButton,
-      MySelect
+      MySelect,
+      LogoCardVisa
   },
   data ()
   {
@@ -63,9 +83,9 @@ import MySelect from '@/components/UI/MySelect.vue'
       secondNumbers: null,
       thirdNumbers: null,
       lastNumbers: null,
-      nameHolder: '',
-      selectedMonth: '',
-      selectedYears: '',
+      nameHolder: null,
+      selectedMonth: null,
+      selectedYears: null,
       optionsMonth: [
         { value: '01', name: '01' },
         { value: '02', name: '02' },
@@ -104,7 +124,9 @@ import MySelect from '@/components/UI/MySelect.vue'
 </script>
 
 <style lang="scss" scoped>
-
+  ul,li {
+    list-style-type: none;
+  }
   fieldset {
     border: none;
     padding: 0;
@@ -171,6 +193,39 @@ import MySelect from '@/components/UI/MySelect.vue'
       z-index: 2;
       transform: rotateY(0deg);
     }
+    &__front-center {
+      height: 50px;
+    }
+    &__front-logo {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+    }
+    &__front-bottom {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      padding: 0 20px;
+    }
+    &__front-bottom-right {
+      display: flex;
+    }
+    &__front-year {
+      width: 50px;
+    }
+    &__numbers-card {
+      display: flex;
+      margin-top: 100px;
+    }
+    &__number {
+      margin-right: 43px;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 2px;
+    }
+    &__number:last-child {
+      margin-right: 0px;
+    }
     &__back {
       transform: rotateY(180deg);
     }
@@ -184,6 +239,28 @@ import MySelect from '@/components/UI/MySelect.vue'
       background: url('http://cdn.flaticon.com/svg/44/44386.svg') no-repeat center;
       background-size: cover;
       opacity: .05;
+    }
+    &__front-chip  {
+      position: absolute;
+      width: 60px;
+      height: 45px;
+      top: 20px;
+      left: 20px;
+      background: linear-gradient(135deg, hsl(269,54%,87%) 0%,hsl(200,64%,89%) 44%,hsl(18,55%,94%) 100%);;
+      border-radius: 8px;
+    }
+    &__front-chip::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      border: 4px solid hsla(0, 0, 50, .1);
+      width: 80%;
+      height: 70%;
+      border-radius: 5px;
     }
     &__input-number {
       width: 100%;
